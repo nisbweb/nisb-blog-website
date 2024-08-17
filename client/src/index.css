@@ -6,3 +6,11 @@
 *{
     font-family: productsans;
 }
+
+.heading{
+    font-family: productsans-bold;
+}
+
+.content{
+    font-family: productsans-light;
+}

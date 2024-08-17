@@ -2,3 +2,13 @@
     font-family: productsans;
     src: url('./src/assets/fonts/ProductSans-Regular.ttf');
 }
+
+@font-face {
+    font-family: productsans-bold;
+    src: url('./src/assets/fonts/ProductSans-Medium.ttf');
+}
+
+@font-face {
+    font-family: productsans-light;
+    src: url('./src/assets/fonts/ProductSans-Light.ttf');
+}
