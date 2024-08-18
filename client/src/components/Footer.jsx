@@ -6,7 +6,7 @@ export default function Footer() {
     <div className='footer h-[300px] bg-[#F5FAFD] mt-40 pl-40 pr-40 pt-[45px] pb-100 flex justify-between border-t-[1px] border-[#D8EAF6]'>
         <div>
             NISB<br/>
-            <div className=''>
+            <div className='mt-4'>
                 <a href=''>Home</a><br/>
                 <a href=''>About</a><br/>
                 <a href=''>Events</a><br/>
@@ -16,7 +16,7 @@ export default function Footer() {
 
         <div>
             Chapters & Affinity Groups<br/>
-            <div className=''>
+            <div className='mt-4'>
                 <a href=''>Computer Society</a><br/>
                 <a href=''>Circuits and Systems Society</a><br/>
                 <a href=''>Robotics and Automation Society</a><br/>
@@ -27,16 +27,16 @@ export default function Footer() {
 
         <div>
             Address<br/>
-            <div className='content'>
+            <div className='mt-4 content'>
                 NIE IEEE Student Branch<br/>
                 The National Institute of Engineering<br/>
                 Mysuru<br/>
                 <div className='mt-3 flex flex-row items-center gap-2'>
-                    <a href=''><i className="fa-solid fa-envelope" style={{color: "#000000"}}></i></a>
-                    <a href=''><i className="fa-brands fa-instagram" style={{color: "#000000"}}></i></a>
-                    <a href=''><i className="fa-brands fa-linkedin" style={{color: "#000000"}}></i></a>
-                    <a href=''><i className="fa-brands fa-youtube" style={{color: "#000000"}}></i></a>
-                    <a href=''><i className="fa-brands fa-github" style={{color: "#000000"}}></i></a>
+                    <a href='' className='hover:text-gray-500'><i className="fa-solid fa-envelope text-lg"></i></a>
+                    <a href='' className='hover:text-gray-500'><i className="fa-brands fa-instagram text-lg"></i></a>
+                    <a href='' className='hover:text-gray-500'><i className="fa-brands fa-linkedin text-lg"></i></a>
+                    <a href='' className='hover:text-gray-500'><i className="fa-brands fa-youtube text-lg"></i></a>
+                    <a href='' className='hover:text-gray-500'><i className="fa-brands fa-github text-lg"></i></a>
                 </div>
             </div>
         </div>

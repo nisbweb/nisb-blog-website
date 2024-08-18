@@ -22,3 +22,14 @@
 .footer a:hover{
     font-family: productsans;
 }
+
+.nav a:hover, .nav a.active {
+    border-bottom: 2px solid black;
+}
+
+.ipt{
+    padding: 5px;
+    border: 1px solid #CCCCCC;
+    margin-bottom: 15px;
+    width: 100%;
+}
