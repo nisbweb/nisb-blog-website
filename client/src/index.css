@@ -14,3 +14,11 @@
 .content{
     font-family: productsans-light;
 }
+
+.footer a{
+    font-family: productsans-light;
+}
+
+.footer a:hover{
+    font-family: productsans;
+}

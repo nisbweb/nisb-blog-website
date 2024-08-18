@@ -3,7 +3,7 @@ import book from '../assets/img/book.png';
 
 export default function Card() {
   return (
-    <div className='h-[456px] w-[320px] mr-20 bg-[#F5FAFD] border-[1px] border-[#D8EAF6] shadow-md shadow-[#DCE7EF] hover:shadow-xl hover:shadow-[#DCE7EF]'> 
+    <div className='h-[456px] w-[320px] mb-18 bg-[#F5FAFD] border-[1px] border-[#D8EAF6] shadow-md shadow-[#DCE7EF] hover:shadow-xl hover:shadow-[#DCE7EF]'> 
         <img className='h-[151px] w-[320px] mx-auto object-cover' src='https://imageio.forbes.com/specials-images/imageserve/61d52d4e3a76ed81ac034ea8/The-10-Tech-Trends-That-Will-Transform-Our-World/960x0.jpg?height=399&width=711&fit=bounds'/>
     
         {/* TEXT */}
