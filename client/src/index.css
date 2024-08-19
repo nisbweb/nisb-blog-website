@@ -33,3 +33,11 @@
     margin-bottom: 15px;
     width: 100%;
 }
+
+.ipt2{
+    padding: 5px;
+    border: 1px solid #CCCCCC;
+    margin-bottom: 15px;
+    width: 500px;
+    /* width: 35%; */
+}

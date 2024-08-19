@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import Try from './components/Try';
 import WriteBlog from './pages/WriteBlog';
 import ContributeBlogPage from './pages/ContributeBlogPage';
+import WriterDetails from './pages/WriterDetails';
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
           <Route path='/tech-blogs' element={<HomePage/>}/>
           <Route path='/placements-higherstudies' element={<HomePage/>}/>
           <Route path='/writeblog' element={<WriteBlog/>}/>
+          <Route path='/details' element={<WriterDetails/>}/>
           <Route path='/contribute' element={<ContributeBlogPage/>}/>
         </Routes>
       </BrowserRouter>
