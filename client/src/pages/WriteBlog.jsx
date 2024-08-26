@@ -10,32 +10,48 @@ export default function WriteBlog() {
 
     const [title, setTitle] = useState(blogData.title || '');
     const [summary, setSummary] = useState(blogData.summary || '');
-    // const [keywords, setKeywords] = useState([]);
     const [cover, setCover] = useState(blogData.cover || '');
     const [content, setContent] = useState(blogData.content || '');
     const navigate = useNavigate();
-    
-    const [coverPath, setCoverPath] = useState(blogData.coverPath || '');
 
 
 
-    async function nxtDetails(ev){
+    async function nxtDetails(ev) {
         ev.preventDefault();
-        setBlogData({...blogData, title, summary, cover, content});
-
-        const response = await fetch('http://localhost:4000/cover-upload',{
-            method: 'POST',
-            body: cover
-        });
-
-            console.log(response.url);
-            setCoverPath(response.url);
-            setBlogData({...blogData, coverPath});
-            
-            navigate("/details");
-
-
+    
+        // First, set the initial blog data (excluding coverPath)
+        setBlogData({ ...blogData, title, summary, cover, content });
+    
+        // Create FormData for the cover upload
+        const formData = new FormData();
+        formData.append('cover', cover[0]);
+    
+        try {
+            // Fetch response from the server
+            const response = await fetch('http://localhost:4000/upload-cover', {
+                method: 'POST',
+                body: formData,
+            });
+    
+            if (response.ok) {
+                const data = await response.json(); // Parse the JSON response
+    
+                const coverPath = data.coverPath; // Assuming server returns coverPath in the response
+                console.log("Cover path received:", coverPath);
+    
+                // Update coverPath in the blogData
+                setBlogData((prevData) => ({ ...prevData, coverPath }));
+    
+                // Navigate only after setting the blogData
+                navigate("/details");
+            } else {
+                console.error("Failed to upload cover image:", response.statusText);
+            }
+        } catch (error) {
+            console.error("Error during upload:", error);
+        }
     }
+    
 
 
     const modules = {
@@ -61,7 +77,6 @@ export default function WriteBlog() {
         <form onSubmit={nxtDetails}>
             <input className='ipt' type='text' required placeholder='Title' value={title} onChange={ev => setTitle(ev.target.value)}/><br/>
             <input className='ipt' type='text' required placeholder='Summary' value={summary} onChange={ev => setSummary(ev.target.value)}/><br/>
-            {/* <input className='ipt' type='text' required placeholder='Keywords' value={keywords} onChange={ev => setKeywords(ev.target.value)}/><br/> */}
             <input className='ipt' type='file' onChange={ev => setCover(ev.target.files)}/><br/>
             <ReactQuill theme="snow" modules={modules} value={content} onChange={newValue => setContent(newValue)}/><br/>
             {/* <input className='ipt' type='text' required placeholder='Content' value={content} onChange={ev => setContent(ev.target.value)}/><br/> */}
