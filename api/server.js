@@ -28,15 +28,17 @@ mongoose.connect(uri).then(
 
 
 // TO FETCH BLOGS
-
+app.get('/getBLogs', async(req, res) => {
+    res.json(await Blog.find());
+})
 
 
 
 // --------------------------------------------------------------------------------------------------------------------
 
+const coverParentId = "1_n5P8WXmjiF2VfUsRQMeA-1Q0QWqWa8I";
+const writerpicParentId = "1jaA6N5A-WrsvsSihGkNWOFoJYJXpXjaB";
 
-
-// try 
 // Authorization function
 async function authorise() {
     const jwtClient = new google.auth.JWT(
@@ -51,13 +53,14 @@ async function authorise() {
 }
 
 // Upload function
-async function uploadfile(filePath) {
+async function uploadfile(filePath, parentFolderId) {
     const authClient = await authorise();
     const drive = google.drive({ version: "v3", auth: authClient });
 
     const fileMetaData = {
         name: path.basename(filePath),
-        parents: ['1plBjr31efaEzmTfHNUw6-6lEgUaUWVib'] // folder ID
+        // parents: ['1plBjr31efaEzmTfHNUw6-6lEgUaUWVib'] // folder ID
+        parents: [parentFolderId] // folder ID
     };
 
     const media = {
@@ -71,9 +74,6 @@ async function uploadfile(filePath) {
             media: media,
             fields: 'id',
         });
-
-        // console.log('File uploaded to Drive with ID:', response.data.id);
-        // return response.data.id;
 
         // Set the file's permissions to be publicly accessible
         const fileId = response.data.id;
@@ -96,30 +96,8 @@ async function uploadfile(filePath) {
     }
 }
 
-// Multer setup for file upload
-const tryUpload = multer({ dest: 'uploads/' });
-
-app.post('/upload', tryUpload.single('img'), async (req, res) => {
-    const imgPath = path.join('uploads', req.file.filename);
-
-    try {
-        const driveFileId = await uploadfile(imgPath);
-        res.json({ driveFileId });
-
-        // Clean up the local file
-        fs.unlinkSync(imgPath);
-    } catch (err) {
-        res.status(500).json({ error: 'Failed to upload file to Google Drive' });
-    }
-});
-
 
 // --------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
 
 
 
@@ -128,11 +106,18 @@ app.post('/upload', tryUpload.single('img'), async (req, res) => {
 const coverUpload = multer({dest:'cover-uploads/'});
 const writerpicUpload = multer({dest:'writerpic-uploads/'});
 
-app.post('/upload-cover', coverUpload.single('cover'), (req, res) => {
+app.post('/upload-cover', coverUpload.single('cover'), async (req, res) => {
     const coverPath = path.join('cover-uploads',req.file.filename);
+    try {
+        const driveFileId = await uploadfile(coverPath, coverParentId);
+        res.status(200).json({ driveFileId });
 
-    // Send back the cover path so it can be used in the next request
-    res.json({ coverPath });
+        // Clean up the local file
+        fs.unlinkSync(coverPath); // Deletes the cover file
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to upload cover image to Google Drive' });
+    }
+    fs.unlinkSync(coverPath);
 });
 
 // to insert data to table
@@ -141,6 +126,17 @@ app.post('/submit-blog', writerpicUpload.single('writerpic'), async (req, res) =
     const { title, summary, content, name, about, email, linksArray, coverPath } = req.body;
     const cover_path = req.body.coverPath;
     const writerPicPath = path.join('writerpic-uploads', req.file.filename);
+    let writerpicFileId = '';
+
+    try {
+        writerpicFileId = await uploadfile(writerPicPath, writerpicParentId);
+        // Clean up the local file
+        fs.unlinkSync(writerPicPath); // Deletes the writerpic file
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to upload writerpic to Google Drive' });
+    }
+    fs.unlinkSync(writerPicPath);
+
     
     const newBlog = new Blog({
         title,
@@ -151,16 +147,12 @@ app.post('/submit-blog', writerpicUpload.single('writerpic'), async (req, res) =
         about,
         email,
         linksArray: JSON.parse(linksArray),
-        writerpic: writerPicPath // File path from this API
+        writerpic: writerpicFileId 
     });
     
     try{
         await newBlog.save();
         res.status(200).json({ message: 'Blog post created successfully!' });
-
-        // If the data is saved successfully, delete the uploaded files
-        fs.unlinkSync(coverPath); // Deletes the cover file
-        fs.unlinkSync(writerPicPath); // Deletes the writerpic file
     
     } catch (err) {
       console.error('Error creating blog post:', err);
@@ -172,6 +164,13 @@ app.post('/submit-blog', writerpicUpload.single('writerpic'), async (req, res) =
 
 
 
+
+// to get blog info 
+app.get('/get-blog-info/:id', async(req, res) => {
+    const {id} = req.params;
+    const blogInfo = await Blog.findById(id);
+    res.json(blogInfo); 
+})
 
 
 

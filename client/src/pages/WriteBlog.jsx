@@ -26,6 +26,9 @@ export default function WriteBlog() {
         const formData = new FormData();
         formData.append('cover', cover[0]);
     
+        // Log cover file to ensure it’s correct
+        console.log('Cover file:', cover[0]);
+    
         try {
             // Fetch response from the server
             const response = await fetch('http://localhost:4000/upload-cover', {
@@ -36,7 +39,10 @@ export default function WriteBlog() {
             if (response.ok) {
                 const data = await response.json(); // Parse the JSON response
     
-                const coverPath = data.coverPath; // Assuming server returns coverPath in the response
+                // Log response data
+                console.log("Response data:", data);
+    
+                const coverPath = data.driveFileId; // Assuming server returns coverPath in the response
                 console.log("Cover path received:", coverPath);
     
                 // Update coverPath in the blogData

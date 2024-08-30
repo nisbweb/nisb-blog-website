@@ -26,7 +26,7 @@ export default function WriterDetails() {
       setLinksArray(array);
     };
 
-    async function createNewPost(ev){
+    async function submitBlog(ev){
       ev.preventDefault();
 
       console.log("entered  createNewPost");
@@ -76,7 +76,7 @@ export default function WriterDetails() {
               <p className='heading text-[35px]'>Your Details</p>
               <img src={logo} className='w-10 h-10'/>
           </div>
-          <form onSubmit={createNewPost}>
+          <form onSubmit={submitBlog}>
               <input className='ipt2' type='text' placeholder='Name' value={name} onChange={ev => setName(ev.target.value)}/><br/>
               <input className='ipt2' type='text' placeholder='About' value={about} onChange={ev => setAbout(ev.target.value)}/><br/>
               <input className='ipt2' type='text' placeholder='Email' value={email} onChange={ev => setEmail(ev.target.value)}/><br/>
