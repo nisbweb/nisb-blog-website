@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import logo from '../assets/img/NISB-logo.png';
 import { BlogContext } from '../BlogContext';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function WriterDetails() {

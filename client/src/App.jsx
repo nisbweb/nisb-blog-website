@@ -7,6 +7,7 @@ import WriteBlog from './pages/WriteBlog';
 import ContributeBlogPage from './pages/ContributeBlogPage';
 import WriterDetails from './pages/WriterDetails';
 import { BlogContextProvider } from './BlogContext';
+import TryPage from './pages/TryPage';
 
 function App() {
 
@@ -17,7 +18,7 @@ function App() {
       <BrowserRouter>
           <Routes>
             <Route index element={<HomePage/>}/>
-            <Route path='/try' element={<Try/>}/>
+            <Route path='/try' element={<TryPage/>}/>
             <Route path='/tech-blogs' element={<HomePage/>}/>
             <Route path='/placements-higherstudies' element={<HomePage/>}/>
             <Route path='/writeblog' element={<WriteBlog/>}/>

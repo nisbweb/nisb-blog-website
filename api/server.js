@@ -6,6 +6,9 @@ const path = require('path');
 const fs = require('fs');
 const Blog = require('./models/Blog');
 
+const { google } = require('googleapis')
+const apikeys = require('./drive-apikey.json')
+
 const app = express();
 app.use(cors())
 
@@ -25,6 +28,95 @@ mongoose.connect(uri).then(
 
 
 // TO FETCH BLOGS
+
+
+
+
+// --------------------------------------------------------------------------------------------------------------------
+
+
+
+// try 
+// Authorization function
+async function authorise() {
+    const jwtClient = new google.auth.JWT(
+        apikeys.client_email,
+        null,
+        apikeys.private_key.replace(/\\n/g, '\n'), // Ensure the key is correctly formatted
+        ['https://www.googleapis.com/auth/drive.file'] // Adjusted scope
+    );
+
+    await jwtClient.authorize();
+    return jwtClient;
+}
+
+// Upload function
+async function uploadfile(filePath) {
+    const authClient = await authorise();
+    const drive = google.drive({ version: "v3", auth: authClient });
+
+    const fileMetaData = {
+        name: path.basename(filePath),
+        parents: ['1plBjr31efaEzmTfHNUw6-6lEgUaUWVib'] // folder ID
+    };
+
+    const media = {
+        mimeType: 'image/png', // file's MIME type
+        body: fs.createReadStream(filePath),
+    };
+
+    try {
+        const response = await drive.files.create({
+            resource: fileMetaData,
+            media: media,
+            fields: 'id',
+        });
+
+        // console.log('File uploaded to Drive with ID:', response.data.id);
+        // return response.data.id;
+
+        // Set the file's permissions to be publicly accessible
+        const fileId = response.data.id;
+        await drive.permissions.create({
+            fileId: fileId,
+            requestBody: {
+                role: 'reader',
+                type: 'anyone',
+            },
+        });
+
+        // Generate a sharable link
+        const sharableLink = `https://drive.google.com/uc?id=${fileId}`;
+        console.log('File uploaded and accessible at:', sharableLink);
+
+        return fileId;
+    } catch (err) {
+        console.error('Error uploading to Drive:', err);
+        throw err;
+    }
+}
+
+// Multer setup for file upload
+const tryUpload = multer({ dest: 'uploads/' });
+
+app.post('/upload', tryUpload.single('img'), async (req, res) => {
+    const imgPath = path.join('uploads', req.file.filename);
+
+    try {
+        const driveFileId = await uploadfile(imgPath);
+        res.json({ driveFileId });
+
+        // Clean up the local file
+        fs.unlinkSync(imgPath);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to upload file to Google Drive' });
+    }
+});
+
+
+// --------------------------------------------------------------------------------------------------------------------
+
+
 
 
 

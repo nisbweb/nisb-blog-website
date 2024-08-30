@@ -13,7 +13,7 @@ export default function Navbar() {
             <NavLink to="/tech-blogs">Tech</NavLink>
             <NavLink to="/placements-higherstudies">Placements & Higher studies</NavLink>
         </div>
-            <Link to="/contribute">Contribute a Blog</Link>
+            <NavLink to="/contribute">Contribute a Blog</NavLink>
     </div>
   )
 }
