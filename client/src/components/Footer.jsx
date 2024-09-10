@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
-    <div className='footer h-[300px] bg-[#F5FAFD] mt-40 pl-40 pr-40 pt-[45px] pb-100 flex justify-between border-t-[1px] border-[#D8EAF6]'>
+    <div className='footer h-[300px] bg-[#000000] text-white mt-40 pl-40 pr-40 pt-[45px] pb-100 flex justify-between border-t-[1px] border-[#D8EAF6]'>
         <div>
             NISB<br/>
             <div className='mt-4'>

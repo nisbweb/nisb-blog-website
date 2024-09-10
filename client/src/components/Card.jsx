@@ -12,8 +12,7 @@ export default function Card({info}) {
 
   return (
     <Link to={'/blog/'+_id}>
-      <div className='relative h-[456px] w-[370px] mb-20 bg-[#F5FAFD]  shadow-md shadow-[#DCE7EF] hover:shadow-2xl hover:shadow-[#DCE7EF]' onClick={handle_click}> 
-          {/* <img className='h-[160px] w-[370px] mx-auto object-cover' src='https://imageio.forbes.com/specials-images/imageserve/61d52d4e3a76ed81ac034ea8/The-10-Tech-Trends-That-Will-Transform-Our-World/960x0.jpg?height=399&width=711&fit=bounds'/> */}
+      <div className='relative h-[456px] w-[370px] mb-20 bg-[#ffffff]  shadow-sm shadow-[#b3b3b3] hover:shadow-xl hover:shadow-[#b3b3b3]' onClick={handle_click}> 
           <img className='h-[160px] w-[370px] mx-auto object-cover' src={`https://drive.google.com/thumbnail?id=${cover}`}/>
       
           {/* TEXT */}
@@ -23,7 +22,7 @@ export default function Card({info}) {
                   <img src={book} className='h-4 w-4'/> 
                   <p className='text-[#474747] text-[12px]'>4min read</p>
               </div>
-              <div className='pt-5 content text-[15px] overflow-hidden text-ellipsis' style={{ display: '-webkit-box', WebkitLineClamp: '3', WebkitBoxOrient: 'vertical' }}>
+              <div className='pt-4 content text-[15px] overflow-hidden text-ellipsis' style={{ display: '-webkit-box', WebkitLineClamp: '3', WebkitBoxOrient: 'vertical' }}>
               {summary}
               </div>
           </div>
@@ -31,7 +30,6 @@ export default function Card({info}) {
           {/* AUTHOR */}
           <div className='absolute bottom-0 left-0 ml-7 mr-7 pb-7 flex flex-row items-center gap-2'>
               <img src={`https://drive.google.com/thumbnail?id=${writerpic}`} alt="Sample Image" className="rounded-full w-7 h-7"></img>
-              {/* <img src='https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg' alt="Sample Image" className="rounded-full w-7 h-7"></img> */}
               <div className='content text-[13px]'>{name} &nbsp;| &nbsp;{format(createdAt, 'MMMM d, yyyy')}</div>
           </div>
       </div>

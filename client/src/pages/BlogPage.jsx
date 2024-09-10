@@ -17,8 +17,21 @@ export default function BlogPage() {
   if (!blogInfo) return '';
 
   return (
-    <div className="ql-editor" style={{ padding: 0 }}>
-      <div dangerouslySetInnerHTML={{__html:blogInfo.content}}/>
+    <div className='bg-[#f7f7f7] h-screen pt-28 pl-52 pr-52 pb-24 flex flex-row gap-20'>
+      <div className="ql-editor w-screen bg-white" style={{ padding: 0 }}>
+        {/* <img src={blogInfo.co}></img> */}
+        <img className='h-72 w-full object-cover' src={`https://drive.google.com/thumbnail?id=${blogInfo.cover}`}/>
+        <div className='mt-12 ml-12 mr-12'>
+          <div className='heading text-[40px] pb-12'>{blogInfo.title}</div>
+          <div dangerouslySetInnerHTML={{__html:blogInfo.content}}/>
+        </div>
+      </div>
+
+
+
+      <div className='min-w-72 bg-white pl-10 pr-10 pt-10'>
+        Similar blogs
+      </div>
     </div>
   );
 }

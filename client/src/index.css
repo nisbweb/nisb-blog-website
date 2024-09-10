@@ -21,10 +21,13 @@
 
 .footer a:hover{
     font-family: productsans;
+    color: rgb(142, 142, 142);
 }
 
 .nav a:hover, .nav a.active {
-    border-bottom: 2px solid black;
+    /* border-bottom: 2px solid white; */
+    /* background-color: grey; */
+    color: rgb(142, 142, 142);
 }
 
 .ipt{

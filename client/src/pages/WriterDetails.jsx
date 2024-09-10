@@ -20,13 +20,9 @@ export default function WriterDetails() {
       console.log("Updated blogData:", blogData);
   }, [blogData]);
 
-    const handleInputChange = (ev) => {
-      const value = ev.target.value;
-      const array = value.split(',').map(item => item.trim()).filter(item => item !== '');
-      setLinksArray(array);
-    };
-
     async function submitBlog(ev){
+      const array = linksArray.split(',').map(item => item.trim()).filter(item => item !== '');
+
       ev.preventDefault();
 
       console.log("entered  createNewPost");
@@ -39,13 +35,13 @@ export default function WriterDetails() {
       data.append('cover', blogData.cover);
       data.append('coverPath', blogData.coverPath);
       data.append('content', blogData.content);
-      data.append('name', name); // Updated to use the current state
+      data.append('name', name); 
       data.append('about', about);
       data.append('email', email);
       if (writerpic) {
         data.append('writerpic', writerpic[0]); // Append the first file in case of single file
       }
-      data.append('linksArray', JSON.stringify(linksArray)); // Convert array to JSON string
+      data.append('linksArray', JSON.stringify(array)); // Convert array to JSON string
 
       // console.log("FormData:", data);
       for (const [key, value] of data.entries()) {
@@ -80,7 +76,7 @@ export default function WriterDetails() {
               <input className='ipt2' type='text' placeholder='Name' value={name} onChange={ev => setName(ev.target.value)}/><br/>
               <input className='ipt2' type='text' placeholder='About' value={about} onChange={ev => setAbout(ev.target.value)}/><br/>
               <input className='ipt2' type='text' placeholder='Email' value={email} onChange={ev => setEmail(ev.target.value)}/><br/>
-              <input className='ipt2' type='text' placeholder='Other links(Linkedin, Github, Porfolio)' value={linksArray.join(', ')} onChange={handleInputChange}/><br/>
+              <input className='ipt2' type='text' placeholder='Other links(Linkedin, Github, Porfolio)' value={linksArray.join(', ')} onChange={ev => setLinksArray(ev.target.value)}/><br/>
               <input className='ipt2' type='file' onChange={ev => setWriterpic(ev.target.files)}/><br/>
               <button className='bg-black text-white px-10 py-1 mt-5'>Submit</button>
           </form>

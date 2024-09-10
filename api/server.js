@@ -5,6 +5,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const Blog = require('./models/Blog');
+const ApprovedBlogs = require('./models/BlogsApproved');
 
 const { google } = require('googleapis')
 const apikeys = require('./drive-apikey.json')
@@ -29,7 +30,7 @@ mongoose.connect(uri).then(
 
 // TO FETCH BLOGS
 app.get('/getBLogs', async(req, res) => {
-    res.json(await Blog.find());
+    res.json(await ApprovedBlogs.find());
 })
 
 

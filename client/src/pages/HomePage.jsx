@@ -5,6 +5,7 @@ import Footer from '../components/Footer'
 
 export default function HomePage() {
   const [blogs, setBlogs] = useState([]);
+  const [search, setSearch] = useState('');
 
 
   useEffect(() => {
@@ -30,14 +31,19 @@ export default function HomePage() {
 
 
   return (
-    <div>
-        <div className='h-[500px] bg-[#D5F2FD]'>
+    <div className='bg-[#f7f7f7]'>
+        <div className='h-[500px]'>
             <Navbar/>
+            <div className='pl-28 pr-28 pt-12'>
+              Few Sentences here along with an animation
+            </div>
         </div>
-        {/* SEARCH BOX */}
-        <div>
 
+        {/* SEARCH BOX */}
+        <div className='flex justify-center'>
+          <input className='w-[1000px] bg-white py-3 px-6 rounded-full text-[17px]' type='text' placeholder='Search' value={search}></input>
         </div>
+
         {/* BLOGS */}
         <div className='w-3/4 mx-auto pt-40 grid grid-cols-3 justify-evenly'>
           {/* <div className='justify-self-start'>
@@ -51,17 +57,31 @@ export default function HomePage() {
           </div> */}
           
 
-        
-          {blogs.length > 0 ? (
-            blogs.map((blog) => (
 
-                
-                <Card info={blog}/>
-              
-              ))
-            ) : (
-              <p>No blogs</p>
-            )}
+          {blogs.length > 0 ? (
+            
+            blogs.map((blog) => (
+                <Card key={blog._id} info={blog}/>       
+            ))
+          ) : (
+            <p>No blogs</p>
+          )}
+          {blogs.length > 0 ? (
+            
+            blogs.map((blog) => (
+                <Card key={blog._id} info={blog}/>       
+            ))
+          ) : (
+            <p>No blogs</p>
+          )}
+          {blogs.length > 0 ? (
+            
+            blogs.map((blog) => (
+                <Card key={blog._id} info={blog}/>       
+            ))
+          ) : (
+            <p>No blogs</p>
+          )}
 
 
 
@@ -73,23 +93,3 @@ export default function HomePage() {
     </div>
   )
 }
-
-
-{/* <div className='w-3/4 mx-auto pt-40 grid grid-cols-3'>
-      {cards.map((card, index) => (
-        <div
-          key={index}
-          className={
-            index === 0
-              ? 'justify-self-start'
-              : index === 1
-              ? 'justify-self-center'
-              : index === 2
-              ? 'justify-self-end'
-              : ''
-          }
-        >
-          <Card content={card} />
-        </div>
-      ))}
-    </div> */}
