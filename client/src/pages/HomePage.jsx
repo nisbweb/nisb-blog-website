@@ -41,47 +41,64 @@ export default function HomePage() {
 
         {/* SEARCH BOX */}
         <div className='flex justify-center'>
-          <input className='w-[1000px] bg-white py-3 px-6 rounded-full text-[17px]' type='text' placeholder='Search' value={search}></input>
+          <input className='w-[1000px] bg-white py-3 px-6 rounded-full text-[17px] shadow-sm shadow-[#d8d7d7]' type='text' placeholder='Search' value={search}></input>
         </div>
 
         {/* BLOGS */}
         <div className='w-3/4 mx-auto pt-40 grid grid-cols-3 justify-evenly'>
-          {/* <div className='justify-self-start'>
-            <Card/>
-          </div>
-          <div className='justify-self-center'>
-            <Card/>
-          </div>
-          <div className='justify-self-end'>
-            <Card/>
-          </div> */}
+
+          {blogs.length > 0 ? (
+            blogs.map((blog, index) => {
+
+              const alignmentClasses = ['justify-self-start', 'justify-self-center', 'justify-self-end'];
+
+              const alignmentClass = alignmentClasses[index % 3];
+
+              return (
+                <div key={blog._id} className={alignmentClass}>
+                  <Card info={blog} />
+                </div>
+              );
+            })
+          ) : (
+            <p>No blogs</p>
+          )}
+
+          {blogs.length > 0 ? (
+            blogs.map((blog, index) => {
+
+              const alignmentClasses = ['justify-self-start', 'justify-self-center', 'justify-self-end'];
+
+              const alignmentClass = alignmentClasses[index % 3];
+
+              return (
+                <div key={blog._id} className={alignmentClass}>
+                  <Card info={blog} />
+                </div>
+              );
+            })
+          ) : (
+            <p>No blogs</p>
+          )}
+          
+          {blogs.length > 0 ? (
+            blogs.map((blog, index) => {
+
+              const alignmentClasses = ['justify-self-start', 'justify-self-center', 'justify-self-end'];
+
+              const alignmentClass = alignmentClasses[index % 3];
+
+              return (
+                <div key={blog._id} className={alignmentClass}>
+                  <Card info={blog} />
+                </div>
+              );
+            })
+          ) : (
+            <p>No blogs</p>
+          )}
           
 
-
-          {blogs.length > 0 ? (
-            
-            blogs.map((blog) => (
-                <Card key={blog._id} info={blog}/>       
-            ))
-          ) : (
-            <p>No blogs</p>
-          )}
-          {blogs.length > 0 ? (
-            
-            blogs.map((blog) => (
-                <Card key={blog._id} info={blog}/>       
-            ))
-          ) : (
-            <p>No blogs</p>
-          )}
-          {blogs.length > 0 ? (
-            
-            blogs.map((blog) => (
-                <Card key={blog._id} info={blog}/>       
-            ))
-          ) : (
-            <p>No blogs</p>
-          )}
 
 
 

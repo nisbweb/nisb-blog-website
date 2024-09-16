@@ -4,7 +4,7 @@ import { format } from 'date-fns'
 import { Link } from 'react-router-dom';
 
 export default function Card({info}) {
-  const {_id, cover, title, summary, name, createdAt, writerpic } = info;
+  const {_id, cover, title, summary, name, createdAt, writerpic, min } = info;
 
   function handle_click(){
 
@@ -20,7 +20,7 @@ export default function Card({info}) {
               <div className='heading text-[20px]'>{title}</div>
               <div className='pt-2 flex flex-row items-center gap-2'>
                   <img src={book} className='h-4 w-4'/> 
-                  <p className='text-[#474747] text-[12px]'>4min read</p>
+                  <p className='text-[#474747] text-[12px]'>{min}min read</p>
               </div>
               <div className='pt-4 content text-[15px] overflow-hidden text-ellipsis' style={{ display: '-webkit-box', WebkitLineClamp: '3', WebkitBoxOrient: 'vertical' }}>
               {summary}

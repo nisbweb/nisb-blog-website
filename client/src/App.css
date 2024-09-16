@@ -12,3 +12,7 @@
     font-family: productsans-light;
     src: url('./src/assets/fonts/ProductSans-Light.ttf');
 }
+
+.ql-editor p {
+    font-size: 16px; /* Increase this size as per your preference */
+  }

@@ -72,6 +72,27 @@ export default function WriteBlog() {
         ]
     }
 
+    // const formats = ["header","bold","italic","underline","strike","blockquote",
+    //     "list","bullet","indent","link","image","color","clean",
+    //   ];
+
+      const formats = [
+        'header',     
+        'bold',        
+        'italic',      
+        'underline',   
+        'strike',      
+        'blockquote',  
+        'code-block',  
+        'script',      
+        'list',        
+        'bullet',      
+        'check',       
+        'link',        
+        'image',       
+      ];
+      
+
 
 
   return (
@@ -84,7 +105,7 @@ export default function WriteBlog() {
             <input className='ipt' type='text' required placeholder='Title' value={title} onChange={ev => setTitle(ev.target.value)}/><br/>
             <input className='ipt' type='text' required placeholder='Summary' value={summary} onChange={ev => setSummary(ev.target.value)}/><br/>
             <input className='ipt' type='file' onChange={ev => setCover(ev.target.files)}/><br/>
-            <ReactQuill theme="snow" modules={modules} value={content} onChange={newValue => setContent(newValue)}/><br/>
+            <ReactQuill theme="snow" modules={modules} formats={formats} value={content} onChange={newValue => setContent(newValue)}/><br/>
             {/* <input className='ipt' type='text' required placeholder='Content' value={content} onChange={ev => setContent(ev.target.value)}/><br/> */}
             
 

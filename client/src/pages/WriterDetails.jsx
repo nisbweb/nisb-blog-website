@@ -76,7 +76,7 @@ export default function WriterDetails() {
               <input className='ipt2' type='text' placeholder='Name' value={name} onChange={ev => setName(ev.target.value)}/><br/>
               <input className='ipt2' type='text' placeholder='About' value={about} onChange={ev => setAbout(ev.target.value)}/><br/>
               <input className='ipt2' type='text' placeholder='Email' value={email} onChange={ev => setEmail(ev.target.value)}/><br/>
-              <input className='ipt2' type='text' placeholder='Other links(Linkedin, Github, Porfolio)' value={linksArray.join(', ')} onChange={ev => setLinksArray(ev.target.value)}/><br/>
+              <input className='ipt2' type='text' placeholder='Other links(Linkedin, Github, Porfolio)' value={linksArray} onChange={ev => setLinksArray(ev.target.value)}/><br/>
               <input className='ipt2' type='file' onChange={ev => setWriterpic(ev.target.files)}/><br/>
               <button className='bg-black text-white px-10 py-1 mt-5'>Submit</button>
           </form>

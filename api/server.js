@@ -107,18 +107,35 @@ async function uploadfile(filePath, parentFolderId) {
 const coverUpload = multer({dest:'cover-uploads/'});
 const writerpicUpload = multer({dest:'writerpic-uploads/'});
 
+// app.post('/upload-cover', coverUpload.single('cover'), async (req, res) => {
+//     const coverPath = path.join('cover-uploads',req.file.filename);
+//     try {
+//         const driveFileId = await uploadfile(coverPath, coverParentId);
+//         res.status(200).json({ driveFileId });
+
+//         // Clean up the local file
+//         fs.unlinkSync(coverPath); // Deletes the cover file
+//     } catch (err) {
+//         res.status(500).json({ error: 'Failed to upload cover image to Google Drive' });
+//     }
+//     fs.unlinkSync(coverPath);
+// });
+
+
+
 app.post('/upload-cover', coverUpload.single('cover'), async (req, res) => {
-    const coverPath = path.join('cover-uploads',req.file.filename);
+    const coverPath = path.join('cover-uploads', req.file.filename);
     try {
         const driveFileId = await uploadfile(coverPath, coverParentId);
         res.status(200).json({ driveFileId });
 
-        // Clean up the local file
-        fs.unlinkSync(coverPath); // Deletes the cover file
+        // Clean up the local file after upload
+        if (fs.existsSync(coverPath)) {
+            fs.unlinkSync(coverPath); // Deletes the cover file
+        }
     } catch (err) {
         res.status(500).json({ error: 'Failed to upload cover image to Google Drive' });
     }
-    fs.unlinkSync(coverPath);
 });
 
 // to insert data to table
@@ -136,7 +153,9 @@ app.post('/submit-blog', writerpicUpload.single('writerpic'), async (req, res) =
     } catch (err) {
         res.status(500).json({ error: 'Failed to upload writerpic to Google Drive' });
     }
-    fs.unlinkSync(writerPicPath);
+    if (fs.existsSync(writerPicPath)) {
+        fs.unlinkSync(writerPicPath);
+    }
 
     
     const newBlog = new Blog({
@@ -169,7 +188,7 @@ app.post('/submit-blog', writerpicUpload.single('writerpic'), async (req, res) =
 // to get blog info 
 app.get('/get-blog-info/:id', async(req, res) => {
     const {id} = req.params;
-    const blogInfo = await Blog.findById(id);
+    const blogInfo = await ApprovedBlogs.findById(id);
     res.json(blogInfo); 
 })
 
