@@ -33,6 +33,8 @@ export default function TryPage() {
 
         <img src={`https://drive.google.com/thumbnail?id=${fileId}`} alt="Hello"></img>
 
+        
+
 
 
     </div>

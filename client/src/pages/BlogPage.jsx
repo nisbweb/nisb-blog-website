@@ -6,6 +6,13 @@ export default function BlogPage() {
   const [blogInfo, setBlogInfo] = useState(null);
   const { id } = useParams();
 
+  const openDraftMail = (email) => {
+    const draftMailBody = 'Your draft mail body here';
+    const subject = 'Your draft mail subject';
+    const mailtoLink = `mailto:${email}?subject=${subject}&body=${draftMailBody}`;
+    window.location.href = mailtoLink;
+  };
+
   useEffect(() => {
     fetch('http://localhost:4000/get-blog-info/' + id).then(response => {
       response.json().then(blogInfo => {
@@ -22,6 +29,7 @@ export default function BlogPage() {
       <div className="ql-editor w-screen bg-white" style={{ padding: 0 }}>
         {/* <img src={blogInfo.co}></img> */}
         <img className='h-72 w-full object-cover' src={`https://drive.google.com/thumbnail?id=${blogInfo.cover}`}/>
+        {/* <img className='h-72 w-full object-cover' src={`https://drive.google.com/thumbnail?id=${blogInfo.cover}/preview`}/> */}
         <div className='mt-12 ml-12 mr-12'>
           <div className='heading text-[40px] pb-12'>{blogInfo.title}</div>
 
@@ -39,7 +47,7 @@ export default function BlogPage() {
                 <div className='content text-[15px] text-[13px]'>{blogInfo.about}</div>
 
                 <div className='mt-2 mb-12 flex flex-row items-center gap-2'>
-                  <a href='' className='hover:text-gray-500'><i className="fa-solid fa-envelope text-lg"></i></a>
+                  <a href='' onClick={() => openDraftMail(blogInfo.email)} className='hover:text-gray-500'><i className="fa-solid fa-envelope text-lg"></i></a>
                   <a href='' className='hover:text-gray-500'><i className="fa-brands fa-linkedin text-lg"></i></a>
                   <a href='' className='hover:text-gray-500'><i className="fa-brands fa-youtube text-lg"></i></a>
                   <a href='' className='hover:text-gray-500'><i className="fa-brands fa-github text-lg"></i></a>
@@ -55,10 +63,26 @@ export default function BlogPage() {
       </div>
 
 
-
       <div className='min-w-72 bg-white pl-10 pr-10 pt-10'>
-        Similar blogs
+        <p className=''>Similar blogs</p>
       </div>
     </div>
   );
 }
+
+
+/*
+  db.blogsapproveds.aggregate([
+...   {
+...     $project: {
+...       _id: 1,
+...       keywords: 1
+...     }
+...   },
+...   {
+...     $match: {
+...       keywords: { $in: ["a", "hello"] }
+...     }
+...   }
+... ])
+*/

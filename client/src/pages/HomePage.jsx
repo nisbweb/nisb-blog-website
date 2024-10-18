@@ -64,7 +64,7 @@ export default function HomePage() {
             <p>No blogs</p>
           )}
 
-          {blogs.length > 0 ? (
+          {/* {blogs.length > 0 ? (
             blogs.map((blog, index) => {
 
               const alignmentClasses = ['justify-self-start', 'justify-self-center', 'justify-self-end'];
@@ -79,9 +79,9 @@ export default function HomePage() {
             })
           ) : (
             <p>No blogs</p>
-          )}
-          
-          {blogs.length > 0 ? (
+          )} */}
+
+          {/* {blogs.length > 0 ? (
             blogs.map((blog, index) => {
 
               const alignmentClasses = ['justify-self-start', 'justify-self-center', 'justify-self-end'];
@@ -96,7 +96,7 @@ export default function HomePage() {
             })
           ) : (
             <p>No blogs</p>
-          )}
+          )} */}
           
 
 

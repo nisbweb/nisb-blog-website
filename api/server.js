@@ -6,6 +6,7 @@ const path = require('path');
 const fs = require('fs');
 const Blog = require('./models/Blog');
 const ApprovedBlogs = require('./models/BlogsApproved');
+require('dotenv').config();
 
 const { google } = require('googleapis')
 const apikeys = require('./drive-apikey.json')
@@ -13,7 +14,7 @@ const apikeys = require('./drive-apikey.json')
 const app = express();
 app.use(cors())
 
-const uri = "mongodb+srv://nisb:qKcRVq5VU9uiHeyc@blogsite.wb2gac1.mongodb.net/?retryWrites=true&w=majority&appName=blogsite";
+const uri = process.env.MONGO_URI;
 
 mongoose.connect(uri).then(
     () => {
@@ -53,6 +54,19 @@ async function authorise() {
     return jwtClient;
 }
 
+function getMimeType(filePath) {
+    const ext = path.extname(filePath).toLowerCase(); // Get file extension
+    switch (ext) {
+        case '.png':
+            return 'image/png';
+        case '.jpg':
+        case '.jpeg':
+            return 'image/jpeg';
+        default:
+            throw new Error('Unsupported file type. Please upload a PNG, JPG, or JPEG file.');
+    }
+}
+
 // Upload function
 async function uploadfile(filePath, parentFolderId) {
     const authClient = await authorise();
@@ -65,7 +79,8 @@ async function uploadfile(filePath, parentFolderId) {
     };
 
     const media = {
-        mimeType: 'image/png', // file's MIME type
+        // mimeType: 'image/png', 
+        mimeType: getMimeType(filePath),
         body: fs.createReadStream(filePath),
     };
 
